@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>ATM System Login: Insert Card</title>
+    <meta
+      name="description"
+      content="Flat UI Kit Free is a Twitter Bootstrap Framework design and Theme, this responsive framework includes a PSD and HTML version."
+    />
+
+    <meta
+      name="viewport"
+      content="width=1000, initial-scale=1.0, maximum-scale=1.0"
+    />
+
+    <!-- Loading Bootstrap -->
+    <link
+      href=" {{ url_for('static',filename='dist/css/vendor/bootstrap/css/bootstrap.min.css') }}"
+      rel="stylesheet"
+    />
+    <link
+      href=" {{ url_for('static',filename='dist/css/flat-ui.css') }}"
+      rel="stylesheet"
+    />
+    <link
+      href=" {{ url_for('static',filename='docs/assets/css/demo.css') }}"
+      rel="stylesheet"
+    />
+    <link
+      href=" {{ url_for('static',filename='css/custom.css') }}"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="shortcut icon"
+      href=" {{ url_for('static',filename='img/favicon.ico') }}"
+    />
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+      <script src=" {{ url_for('static',filename='dist/js/vendor/html5shiv.js') }}"></script>
+      <script src=" {{ url_for('static',filename='dist/js/vendor/respond.min.js') }}"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="demo-headline" style="padding: 0px">
+        <h1 class="demo-logo">
+          ATM
+          <small>24 Hour Banking</small>
+        </h1>
+      </div>
+      <!-- /demo-headline -->
+      <div class="row">
+        <div class="col-xs-12" id="screenView">
+          <!-- Place <h1></h1> below -->
+
+          <!-- Replace Video with Animated Gif or Animated SVG -->
+          <div class="row">
+            <div
+              class="col-xs-8 text-center"
+              style="border-right: solid 3px #ccc"
+            >
+              <h1 class="demo-section-title text-uppercase text-center">
+                Insert Card/ Enter Account Number / Scan Fingerprint to Begin
+              </h1>
+              <input
+                type="text"
+                id="userPinInput"
+                class="form-control"
+                style="color: black; font-weight: bold"
+                readonly
+              />
+              <!-- TABLE -->
+              <div id="pinPad">
+                <table>
+                  <tr>
+                    <td>
+                      <a
+                        id="btn1"
+                        href="#"
+                        onclick="addInput('1')"
+                        class="btn btn-block btn-lg btn-inverse"
+                        >1</a
+                      >
+                    </td>
+                    <td>
+                      <a
+                        id="btn2"
+                        href="#"
+                        onclick="addInput('2')"
+                        class="btn btn-block btn-lg btn-inverse"
+                        >2</a
+                      >
+                    </td>
+                    <td>
+                      <a
+                        id="btn3"
+                        href="#"
+                        onclick="addInput('3')"
+                        class="btn btn-block btn-lg btn-inverse"
+                        >3</a
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <a
+                        id="btn4"
+                        href="#"
+                        onclick="addInput('4')"
+                        class="btn btn-block btn-lg btn-inverse"
+                        >4</a
+                      >
+                    </td>
+                    <td>
+                      <a
+                        id="btn5"
+                        href="#"
+                        onclick="addInput('5')"
+                        class="btn btn-block btn-lg btn-inverse"
+                        >5</a
+                      >
+                    </td>
+                    <td>
+                      <a
+                        id="btn6"
+                        href="#"
+                        onclick="addInput('6')"
+                        class="btn btn-block btn-lg btn-inverse"
+                        >6</a
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <a
+                        id="btn7"
+                        onclick="addInput('7')"
+                        href="#"
+                        class="btn btn-block btn-lg btn-inverse"
+                        >7</a
+                      >
+                    </td>
+                    <td>
+                      <a
+                        id="btn8"
+                        onclick="addInput('8')"
+                        href="#"
+                        class="btn btn-block btn-lg btn-inverse"
+                        >8</a
+                      >
+                    </td>
+                    <td>
+                      <a
+                        id="btn9"
+                        href="#"
+                        onclick="addInput('9')"
+                        class="btn btn-block btn-lg btn-inverse"
+                        >9</a
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <a
+                        id="btn0"
+                        onclick="addInput('0')"
+                        href="#"
+                        class="btn btn-block btn-lg btn-inverse"
+                        >0</a
+                      >
+                    </td>
+                    <td colspan="2">
+                      <a
+                        id="btnClear"
+                        href="#"
+                        class="btn btn-block btn-lg btn-default text-uppercase"
+                        >Clear</a
+                      >
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <!-- // Pin Pad -->
+
+              <div id="confirmPin">
+                <a
+                  href="#" onclick="confirmAccount()"
+                  class="btn btn-block btn-lg btn-success text-uppercase"
+                  >Confirm</a
+                >
+              </div>
+              
+              <!-- // Pin Pad -->
+            </div>
+
+            <div class="col-xs-4">
+              <br />
+              <div class="advertise">
+                <div class="adImage">
+                  <img
+                    src="{{url_for('static', filename='img/icons/svg/chat.svg')}}"
+                  />
+                </div>
+                <div class="adText">Need Help</div>
+              </div>
+              <div class="advertise" id="ad-highlight">
+                <div class="adImage">
+                  <img
+                    src="{{url_for('static', filename='img/icons/svg/toilet-paper.svg')}}"
+                  />
+                </div>
+                <div class="adText">
+                  Register Finger Print for Cardless transactions
+                </div>
+              </div>
+              <div class="advertise">
+                <div class="adImage">
+                  <img
+                    src="{{url_for('static', filename='img/icons/svg/compas.svg')}}"
+                  />
+                </div>
+                <div class="adText">Save on Travel</div>
+              </div>
+            </div>
+            <!-- /.col-xs-4 -->
+          </div>
+          <!-- // END login screen  -->
+        </div>
+        <!--  // END column-->
+        <div class="col-xs-12">
+          <h2>
+            <blockquote>
+              This ATM System is for software testing only! ---
+              <a href="#">sitemap</a>
+            </blockquote>
+          </h2>
+        </div>
+      </div>
+      <!-- // END row-->
+    </div>
+    <!-- /container -->
+
+    <script src=" {{ url_for('static',filename='dist/js/vendor/jquery.min.js') }}"></script>
+    <script src=" {{ url_for('static',filename='dist/js/vendor/video.js') }}"></script>
+    <script src=" {{ url_for('static',filename='dist/js/flat-ui.min.js') }}"></script>
+    <script src=" {{ url_for('static',filename='docs/assets/js/application.js') }}"></script>
+
+    <script>
+      var userPinInput = document.getElementById("userPinInput");
+      document
+        .getElementById("btnClear")
+        .addEventListener("click", function () {
+          userPinInput.value = "";
+        });
+
+      function addInput(number) {
+        //check input character length in above 10
+        if (userPinInput.value.length >= 10) {
+          alert("Account Number Must be 10 Digits");
+          return;
+        }
+        userPinInput.value += number;
+      }
+
+      function confirmAccount() {
+        var accountNumber = userPinInput.value;
+        if (accountNumber.length < 10) {
+          alert("Account Number Must be 10 Digits");
+          return;
+        }
+        window.location.href = "/authenticate?accountNumber=" + accountNumber;
+      }
+    </script>
+  </body>
+</html>
