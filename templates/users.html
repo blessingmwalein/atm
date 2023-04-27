@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>ATM System Login: Insert Card</title>
+    <meta
+      name="description"
+      content="Flat UI Kit Free is a Twitter Bootstrap Framework design and Theme, this responsive framework includes a PSD and HTML version."
+    />
+
+    <meta
+      name="viewport"
+      content="width=1000, initial-scale=1.0, maximum-scale=1.0"
+    />
+
+    <!-- Loading Bootstrap -->
+    <link
+      href=" {{ url_for('static',filename='dist/css/vendor/bootstrap/css/bootstrap.min.css') }}"
+      rel="stylesheet"
+    />
+    <link
+      href=" {{ url_for('static',filename='dist/css/flat-ui.css') }}"
+      rel="stylesheet"
+    />
+    <link
+      href=" {{ url_for('static',filename='docs/assets/css/demo.css') }}"
+      rel="stylesheet"
+    />
+    <link
+      href=" {{ url_for('static',filename='css/custom.css') }}"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="shortcut icon"
+      href=" {{ url_for('static',filename='img/favicon.ico') }}"
+    />
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+      <script src=" {{ url_for('static',filename='dist/js/vendor/html5shiv.js') }}"></script>
+      <script src=" {{ url_for('static',filename='dist/js/vendor/respond.min.js') }}"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="demo-headline" style="padding: 0px">
+        <h1 class="demo-logo">
+          ATM
+          <small>24 Hour Banking</small>
+        </h1>
+      </div>
+      <!-- /demo-headline -->
+      <div class="row">
+        <div class="col-xs-12" id="screenView">
+          <div class="container">
+            <h2>User Accounts</h2>
+            <div id="confirmPin">
+              <button
+                type="submit"
+                data-toggle="modal"
+                data-target="#myModal"
+                class="btn btn-block btn-lg btn-success text-uppercase"
+              >
+                Add User
+              </button>
+
+              <div
+                class="alert alert-danger mt-4"
+                style="margin-top: 3rem"
+                role="alert"
+                id="alertBox"
+              >
+                {{msg}}
+              </div>
+              <!-- // Pin Pad -->
+            </div>
+
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Firstname</th>
+                  <th>Lastname</th>
+                  <th>Id Number</th>
+                  <th>Account</th>
+                  <th>Balance</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in users %}
+                <tr>
+                  <td>{{item.first_name}}</td>
+                  <td>{{item.last_name}}</td>
+                  <td>{{item.id_number}}</td>
+                  <td>{{item.account_number}}</td>
+                  <td>{{item.balance}}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!--  // END column-->
+        <div class="col-xs-12">
+          <h2>
+            <blockquote>
+              This ATM System is for software testing only! ---
+              <a href="#">sitemap</a>
+            </blockquote>
+          </h2>
+        </div>
+      </div>
+      <!-- // END row-->
+    </div>
+    <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+              &times;
+            </button>
+            <h4 class="modal-title">Add User</h4>
+          </div>
+          <div class="modal-body">
+            <form action="{{ url_for('users') }}" method="post">
+              <div class="form-group">
+                <label for="email">First Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="first_name"
+                  name="first_name"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="email">Last Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="last_name"
+                  name="last_name"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="test">Dob</label>
+                <input type="text" class="form-control" id="dob" name="dob" />
+              </div>
+
+              <div class="form-group">
+                <label for="text">Id Number</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="id_number"
+                  name="id_number"
+                />
+              </div>
+              <div class="form-group">
+                <label for="text">Account Number</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="account_number"
+                  name="account_number"
+                />
+              </div>
+              <div class="form-group">
+                <label for="text">Pin</label>
+                <input type="text" class="form-control" id="pin" name="pin" />
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-default"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="submit" class="btn btn-default">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /container -->
+
+    <script src=" {{ url_for('static',filename='dist/js/vendor/jquery.min.js') }}"></script>
+    <script src=" {{ url_for('static',filename='dist/js/vendor/video.js') }}"></script>
+    <script src=" {{ url_for('static',filename='dist/js/flat-ui.min.js') }}"></script>
+    <script src=" {{ url_for('static',filename='docs/assets/js/application.js') }}"></script>
+  </body>
+</html>

@@ -1,20 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>ATM System Options: WIthdraw Cash</title>
-    <meta name="description" content="Flat UI Kit Free is a Twitter Bootstrap Framework design and Theme, this responsive framework includes a PSD and HTML version."/>
+    <meta
+      name="description"
+      content="Flat UI Kit Free is a Twitter Bootstrap Framework design and Theme, this responsive framework includes a PSD and HTML version."
+    />
 
-    <meta name="viewport" content="width=1000, initial-scale=1.0, maximum-scale=1.0">
+    <meta
+      name="viewport"
+      content="width=1000, initial-scale=1.0, maximum-scale=1.0"
+    />
 
     <!-- Loading Bootstrap -->
-    <link href=" {{ url_for('static',filename='dist/css/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href=" {{ url_for('static',filename='dist/css/flat-ui.css') }}" rel="stylesheet">
-    <link href=" {{ url_for('static',filename='docs/assets/css/demo.css') }}" rel="stylesheet">
-    <link href=" {{ url_for('static',filename='css/custom.css') }}" rel="stylesheet">
+    <link
+      href=" {{ url_for('static',filename='dist/css/vendor/bootstrap/css/bootstrap.min.css') }}"
+      rel="stylesheet"
+    />
+    <link
+      href=" {{ url_for('static',filename='dist/css/flat-ui.css') }}"
+      rel="stylesheet"
+    />
+    <link
+      href=" {{ url_for('static',filename='docs/assets/css/demo.css') }}"
+      rel="stylesheet"
+    />
+    <link
+      href=" {{ url_for('static',filename='css/custom.css') }}"
+      rel="stylesheet"
+    />
 
-
-    <link rel="shortcut icon" href=" {{ url_for('static',filename='img/favicon.ico') }}">
+    <link
+      rel="shortcut icon"
+      href=" {{ url_for('static',filename='img/favicon.ico') }}"
+    />
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
     <!--[if lt IE 9]>
@@ -23,117 +43,330 @@
     <![endif]-->
   </head>
   <body>
-        <div class="container">
-      <div class="demo-headline" style="padding:0px;">
-        <h1 class="demo-logo">ATM
+    <div class="container">
+      <div class="demo-headline" style="padding: 0px">
+        <h1 class="demo-logo">
+          ATM
           <small>24 Hour Banking</small>
         </h1>
-      </div> <!-- /demo-headline -->
+      </div>
+      <!-- /demo-headline -->
       <div class="row">
         <div class="col-xs-12" id="screenView">
           <!-- Place <h1></h1> below -->
-          <h1 class="demo-section-title text-uppercase text-center">Withdrawal Funds</h1>
-          <h6 class="text-center">###-####-5456</h6>
+          <h1 class="demo-section-title text-uppercase text-center">
+            Withdrawal Funds
+          </h1>
+          <h6 class="text-center">
+            {{account.first_name}}
+            {{account.last_name}}-{{account.account_number}}
+          </h6>
 
-           <div class="row">
-
+          <div class="row">
             <!-- 3/4 -->
             <div class="col-xs-9">
               <div class="row">
                 <div class="col-xs-4">
                   <div class="tile">
-                   <a id="qc20" href="#" class="btn btn-lg btn-primary text-uppercase btn-padding">&#36; 20.00</a>
+                    <a
+                      id="qc20"
+                      href="#"
+                      onclick="event.preventDefault();SetAmount('20.00')"
+                      class="btn btn-lg btn-primary text-uppercase btn-padding"
+                      >&#36; 20.00</a
+                    >
                   </div>
 
                   <div class="tile">
-                   <a id="qc40" href="#" class="btn btn-lg btn-primary text-uppercase btn-padding">&#36; 40.00</a>
+                    <a
+                      id="qc40"
+                      href="#"
+                      onclick="event.preventDefault();SetAmount('40.00')"
+                      class="btn btn-lg btn-primary text-uppercase btn-padding"
+                      >&#36; 40.00</a
+                    >
                   </div>
-
                 </div>
                 <div class="col-xs-4">
                   <div class="tile">
-                   <a id="qc60" href="#" class="btn btn-lg btn-primary text-uppercase btn-padding">&#36; 60.00</a>
+                    <a
+                      id="qc60"
+                      href="#"
+                      onclick="event.preventDefault();SetAmount('60.00')"
+                      class="btn btn-lg btn-primary text-uppercase btn-padding"
+                      >&#36; 60.00</a
+                    >
                   </div>
 
                   <div class="tile">
-                   <a id="qc80" href="#" class="btn btn-lg btn-primary text-uppercase btn-padding">&#36; 80.00</a>
+                    <a
+                      id="qc80"
+                      href="#"
+                      onclick="event.preventDefault();SetAmount('80.00')"
+                      class="btn btn-lg btn-primary text-uppercase btn-padding"
+                      >&#36; 80.00</a
+                    >
                   </div>
                 </div>
 
                 <div class="col-xs-4">
                   <div class="tile">
-                   <a id="qc100" href="#" class="btn btn-lg btn-primary text-uppercase btn-padding">&#36; 100.00</a>
+                    <a
+                      id="qc100"
+                      href="#"
+                      onclick="event.preventDefault();SetAmount('100.00')"
+                      class="btn btn-lg btn-primary text-uppercase btn-padding"
+                      >&#36; 100.00</a
+                    >
                   </div>
 
                   <div class="tile">
-                   <a id="qc200" href="#" class="btn btn-lg btn-primary text-uppercase btn-padding">&#36; 200.00</a>
+                    <a
+                      id="qc200"
+                      href="#"
+                      onclick="event.preventDefault();SetAmount('200.00')"
+                      class="btn btn-lg btn-primary text-uppercase btn-padding"
+                      >&#36; 200.00</a
+                    >
                   </div>
                 </div>
               </div>
               <div class="row">
-                <div class="col-xs-12">
+                <form
+                  id="withdrawForm"
+                  class="col-xs-12"
+                  method="post"
+                  action="{{ url_for('withdraw') }}"
+                >
                   <h6>Click a button to get that amount of cash.</h6>
                   <h5>or input a multiple of $20. Must be lower than $500</h5>
-              <input type="text" id="qcCustomNumber" class="form-control" placeholder="20.00" disabled />
-              <!-- Number Keys -->
+                  <div
+                    class="alert alert-danger mt-4"
+                    style="margin-top: 3rem"
+                    role="alert"
+                    id="alertBox"
+                  >
+                    {{msg}}
+                  </div>
+                  <input
+                    type="text"
+                    id="userPinInput"
+                    name="userPinInput"
+                    class="form-control"
+                    style="color: black"
+                    placeholder="20.00"
+                    readonly
+                  />
+                  <input
+                    type="number"
+                    hidden
+                    id="balance"
+                    value="{{account.balance}}"
+                  />
+                  <!-- Number Keys -->
 
-              <!-- TABLE -->
-              <div id="pinPad">
-                <table>
-                  <tr>
-                    <td><a id="btn1" href="#" class="btn btn-block btn-lg btn-inverse">1</a></td>
-                    <td><a id="btn2" href="#" class="btn btn-block btn-lg btn-inverse">2</a></td>
-                    <td><a id="btn3" href="#" class="btn btn-block btn-lg btn-inverse">3</a></td>
-                    <td><a id="btn4" href="#" class="btn btn-block btn-lg btn-inverse">4</a></td>
-                    <td><a id="btn5" href="#" class="btn btn-block btn-lg btn-inverse">5</a></td>
-                    <td colspan="2"><a id="btnConfirm" href="#" class="btn btn-block btn-lg btn-primary text-uppercase">Confirm</a></td>
-                  </tr>
-                  <tr>
-                    <td><a id="btn6" href="#" class="btn btn-block btn-lg btn-inverse">6</a></td>
-                    <td><a id="btn7" href="#" class="btn btn-block btn-lg btn-inverse">7</a></td>
-                    <td><a id="btn8" href="#" class="btn btn-block btn-lg btn-inverse">8</a></td>
-                    <td><a id="btn9" href="#" class="btn btn-block btn-lg btn-inverse">9</a></td>
-                    <td><a id="btn0" href="#" class="btn btn-block btn-lg btn-inverse">0</a></td>
-                    <td colspan="2"><a id="btnDelete" href="#" class="btn btn-block btn-lg btn-default text-uppercase">Clear</a></td>
-                  </tr>
-                </table>
-              </div><!-- // Pin Pad -->
-
-                </div>
+                  <!-- TABLE -->
+                  <div id="pinPad">
+                    <table>
+                      <tr>
+                        <td>
+                          <a
+                            id="btn1"
+                            href="#"
+                            onclick=" event.preventDefault();addInput('1')"
+                            class="btn btn-block btn-lg btn-inverse"
+                            >1</a
+                          >
+                        </td>
+                        <td>
+                          <a
+                            id="btn2"
+                            href="#"
+                            onclick="event.preventDefault();addInput('2')"
+                            class="btn btn-block btn-lg btn-inverse"
+                            >2</a
+                          >
+                        </td>
+                        <td>
+                          <a
+                            id="btn3"
+                            href="#"
+                            onclick="event.preventDefault();addInput('3')"
+                            class="btn btn-block btn-lg btn-inverse"
+                            >3</a
+                          >
+                        </td>
+                        <td>
+                          <a
+                            id="btn4"
+                            href="#"
+                            onclick="event.preventDefault();addInput('4')"
+                            class="btn btn-block btn-lg btn-inverse"
+                            >4</a
+                          >
+                        </td>
+                        <td>
+                          <a
+                            id="btn5"
+                            href="#"
+                            onclick="event.preventDefault();addInput('5')"
+                            class="btn btn-block btn-lg btn-inverse"
+                            >5</a
+                          >
+                        </td>
+                        <td colspan="2">
+                          <a
+                            href="#"
+                            onclick="confirmAccount()"
+                            class="btn btn-block btn-lg btn-primary text-uppercase"
+                            >Confirm</a
+                          >
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <a
+                            id="btn6"
+                            href="#"
+                            onclick="event.preventDefault();addInput('6')"
+                            class="btn btn-block btn-lg btn-inverse"
+                            >6</a
+                          >
+                        </td>
+                        <td>
+                          <a
+                            id="btn7"
+                            href="#"
+                            onclick="event.preventDefault();addInput('7')"
+                            class="btn btn-block btn-lg btn-inverse"
+                            >7</a
+                          >
+                        </td>
+                        <td>
+                          <a
+                            id="btn8"
+                            href="#"
+                            onclick="event.preventDefault();addInput('8')"
+                            class="btn btn-block btn-lg btn-inverse"
+                            >8</a
+                          >
+                        </td>
+                        <td>
+                          <a
+                            id="btn9"
+                            href="#"
+                            onclick="event.preventDefault();addInput('9')"
+                            class="btn btn-block btn-lg btn-inverse"
+                            >9</a
+                          >
+                        </td>
+                        <td>
+                          <a
+                            id="btn0"
+                            href="#"
+                            onclick="event.preventDefault();addInput('0')"
+                            class="btn btn-block btn-lg btn-inverse"
+                            >0</a
+                          >
+                        </td>
+                        <td colspan="2">
+                          <a
+                            id="btnClear"
+                            href="#"
+                            class="btn btn-block btn-lg btn-default text-uppercase"
+                            >Clear</a
+                          >
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                  <!-- // Pin Pad -->
+                </form>
               </div>
-
             </div>
             <!-- 1/4 -->
             <div class="col-xs-3">
               <div class="tile">
-               <a id="back" href="#" class="btn btn-lg btn-inverse text-uppercase btn-padding"><span class="fui-arrow-left"></span> Back</a>
+                <a
+                  id="back"
+                  href="/account"
+                  class="btn btn-lg btn-inverse text-uppercase btn-padding"
+                  ><span class="fui-arrow-left"></span> Home</a
+                >
               </div>
               <div class="tile">
-               <a id="logout" href="#" class="btn btn-lg btn-info text-uppercase btn-padding"><span class="fui-user"></span> Logout</a>
+                <a
+                  id="logout"
+                  href="#"
+                  class="btn btn-lg btn-info text-uppercase btn-padding"
+                  ><span class="fui-user"></span> Logout</a
+                >
               </div>
               <div class="tile">
-               <a id="cancelTransactin" href="#" class="btn btn-lg btn-danger text-uppercase btn-padding"><span class="fui-cross"></span> Cancel</a>
+                <a
+                  id="cancelTransaction"
+                  href="#"
+                  class="btn btn-lg btn-danger text-uppercase btn-padding"
+                  ><span class="fui-cross"></span> Cancel</a
+                >
               </div>
             </div>
-
-
-
-
-      </div> <!-- // END OPTIONS-->
-
-
-      </div><!--  // END column-->
-      <div class="col-xs-12">
-        <h2><blockquote>This ATM System is for software testing only! --- <a href="#">sitemap</a></blockquote> </h2>
+          </div>
+          <!-- // END OPTIONS-->
+        </div>
+        <!--  // END column-->
+        <div class="col-xs-12">
+          <h2>
+            <blockquote>
+              This ATM System is for software testing only! ---
+              <a href="#">sitemap</a>
+            </blockquote>
+          </h2>
+        </div>
       </div>
-  </div><!-- // END row-->
-
-
-
-
+      <!-- // END row-->
     </div>
 
-<script src=" {{ url_for('static',filename='dist/js/vendor/jquery.min.js') }}"></script>
+    <script>
+      var userPinInput = document.getElementById("userPinInput");
+      var balance = document.getElementById("balance");
+
+      document
+        .getElementById("btnClear")
+        .addEventListener("click", function () {
+          userPinInput.value = "";
+        });
+      document
+        .getElementById("cancelTransaction")
+        .addEventListener("click", function () {
+          location.href = "/account";
+        });
+
+      function addInput(number) {
+        //check input character length in above 10
+        userPinInput.value += number;
+        var userPinInutFloat = parseFloat(userPinInput.value);
+
+        console.log(userPinInutFloat, parseFloat(balance.value));
+        if (userPinInutFloat > parseFloat(balance.value)) {
+          alert("Insufficient Balance");
+          return;
+        }
+      }
+      function SetAmount(amount) {
+        userPinInput.value = amount;
+      }
+
+      function confirmAccount() {
+        document.getElementById("withdrawForm").submit();
+        //location.href = "/confirm";
+      }
+
+      function navigateFunction(url) {
+        window.location.href = url;
+      }
+    </script>
+    <script src=" {{ url_for('static',filename='dist/js/vendor/jquery.min.js') }}"></script>
     <script src=" {{ url_for('static',filename='dist/js/vendor/video.js') }}"></script>
     <script src=" {{ url_for('static',filename='dist/js/flat-ui.min.js') }}"></script>
     <script src=" {{ url_for('static',filename='docs/assets/js/application.js') }}"></script>
