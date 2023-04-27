@@ -46,13 +46,10 @@ def users():
         print(last_name)
         print(dob)
         print(id_number)
-        
-
-        
 
         newCursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         newCursor.execute('INSERT INTO users VALUES (NULL, % s, % s, % s,% s, % s, % s, % s)',
-                       (first_name, last_name, dob, id_number, pin, "0", accountnumber,))
+                          (first_name, last_name, dob, id_number, pin, "0", accountnumber,))
         mysql.connection.commit()
 
         return render_template('users.html', users=users, msg="User Added")
