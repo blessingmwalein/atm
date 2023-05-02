@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>ATM System Login: Insert Card</title>
+    <title>ATM System Login: Register Finger</title>
     <meta
       name="description"
       content="Flat UI Kit Free is a Twitter Bootstrap Framework design and Theme, this responsive framework includes a PSD and HTML version."
@@ -12,8 +12,6 @@
       name="viewport"
       content="width=1000, initial-scale=1.0, maximum-scale=1.0"
     />
-
-    <!-- Loading Bootstrap -->
     <link
       href=" {{ url_for('static',filename='dist/css/vendor/bootstrap/css/bootstrap.min.css') }}"
       rel="stylesheet"
@@ -30,16 +28,8 @@
       href=" {{ url_for('static',filename='css/custom.css') }}"
       rel="stylesheet"
     />
-
-    <link
-      rel="shortcut icon"
-      href=" {{ url_for('static',filename='img/favicon.ico') }}"
-    />
-
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
-    <!--[if lt IE 9]>
-      <script src=" {{ url_for('static',filename='dist/js/vendor/html5shiv.js') }}"></script>
-      <script src=" {{ url_for('static',filename='dist/js/vendor/respond.min.js') }}"></script>
+    <script src=" {{ url_for('static',filename='dist/js/vendor/html5shiv.js') }}"></script>
+    <script src=" {{ url_for('static',filename='dist/js/vendor/respond.min.js') }}"></script>
     <![endif]-->
   </head>
   <body>
@@ -57,20 +47,26 @@
 
           <!-- Replace Video with Animated Gif or Animated SVG -->
           <div class="row">
-            <div
+            <form
               class="col-xs-8 text-center"
+              id="pinForm"
               style="border-right: solid 3px #ccc"
             >
               <h1 class="demo-section-title text-uppercase text-center">
-                Insert Card/ Enter Account Number / Scan Fingerprint to Begin
+                Scan Fingerprint to Begin
               </h1>
-              <input
-                type="text"
-                id="userPinInput"
-                class="form-control"
-                style="color: black; font-weight: bold"
-                readonly
-              />
+
+              <div class="form-group">
+                <label>Account Number</label>
+                <input
+                  type="text"
+                  id="accountNumber"
+                  class="form-control"
+                  style="color: black; font-weight: bold"
+                  name="accountNumber"
+                  readonly
+                />
+              </div>
               <!-- TABLE -->
               <div id="pinPad">
                 <table>
@@ -185,33 +181,48 @@
               <!-- // Pin Pad -->
 
               <div id="confirmPin">
+                <button
+                  type="button"
+                  onclick="starFinger()"
+                  class="btn btn-block btn-lg btn-success text-uppercase"
+                >
+                  Start
+                </button>
+
+                <!-- // Pin Pad -->
+              </div>
+              <div id="cancelTransaction">
                 <a
                   href="#"
-                  onclick="confirmAccount()"
-                  class="btn btn-block btn-lg btn-success text-uppercase"
-                  >Confirm</a
+                  onclick="stopFinger()"
+                  class="btn btn-block btn-lg btn-danger text-uppercase"
+                  ><span class="fui-cross"></span> Reset</a
+                >
+              </div>
+              <div id="cancelTransaction">
+                <a
+                  href="/"
+                  class="btn btn-block btn-lg btn-danger text-uppercase"
+                  ><span class="fui-cross"></span> Cancel</a
                 >
               </div>
 
               <!-- // Pin Pad -->
-            </div>
+            </form>
 
             <div class="col-xs-4">
-              <br />
+              <!-- add alert box -->
               <div
-                onclick="registerFingerPrint()"
-                style="cursor: pointer"
-                class="advertise"
-                id="ad-highlight"
-              >
-                <div class="adImage">
-                  <img
-                    src="{{url_for('static', filename='img/icons/svg/toilet-paper.svg')}}"
-                  />
-                </div>
-                <div class="adText">
-                  Register Finger Print for Cardless transactions
-                </div>
+                class="alert alert-danger mt-4"
+                style="margin-top: 3rem"
+                role="alert"
+                id="alertBox"
+              ></div>
+              <div style="margin-top: 8rem" id="fingerPrint">
+                <img
+                  src="{{url_for('static', filename='img/CardInsertedGreenLight.png')}}"
+                  style="width: 16em"
+                />
               </div>
             </div>
             <!-- /.col-xs-4 -->
@@ -231,14 +242,49 @@
       <!-- // END row-->
     </div>
     <!-- /container -->
-
-    <script src=" {{ url_for('static',filename='dist/js/vendor/jquery.min.js') }}"></script>
-    <script src=" {{ url_for('static',filename='dist/js/vendor/video.js') }}"></script>
-    <script src=" {{ url_for('static',filename='dist/js/flat-ui.min.js') }}"></script>
-    <script src=" {{ url_for('static',filename='docs/assets/js/application.js') }}"></script>
-
     <script>
       var userPinInput = document.getElementById("userPinInput");
+      var fingerPrint = document.getElementById("fingerPrint");
+      var timer = 8000;
+      //get query param accountNumber
+      fingerPrint.addEventListener("click", function () {
+        document.getElementById(
+          "alertBox"
+        ).innerHTML = `<strong>Finger print registered successfully</strong>`;
+      });
+      const params = new Proxy(new URLSearchParams(window.location.search), {
+        get: (searchParams, prop) => searchParams.get(prop),
+      });
+      // Get the value of "some_key" in eg "https://example.com/?some_key=some_value"
+      let value = params.accountNumber;
+      let msg = params.msg;
+      console.log(value);
+
+      function starFinger() {
+        document.getElementById("alertBox").innerHTML =
+          "<strong>Reading Finger Print...</strong>";
+        setTimeout(() => {
+          document.getElementById("alertBox").innerHTML =
+            "<strong>Finger Print Registered</strong>";
+          setTimeout(() => {
+            document.getElementById("alertBox").innerHTML =
+              "<strong>Redirecting to login...</strong>";
+            location.href = "/authenticate?accountNumber=" + value;
+          }, 4000);
+        }, timer);
+      }
+
+      function stopFinger() {
+        location.reload();
+      }
+
+      document.getElementById("accountNumber").value = value;
+      if (msg) {
+        document.getElementById(
+          "alertBox"
+        ).innerHTML = `<strong>${msg}</strong>`;
+      }
+
       document
         .getElementById("btnClear")
         .addEventListener("click", function () {
@@ -247,29 +293,21 @@
 
       function addInput(number) {
         //check input character length in above 10
-        if (userPinInput.value.length >= 10) {
-          alert("Account Number Must be 10 Digits");
+        if (userPinInput.value.length >= 4) {
+          alert("Pin Number Must be 4 Digits");
           return;
         }
         userPinInput.value += number;
       }
 
-      function confirmAccount() {
-        var accountNumber = userPinInput.value;
-        if (accountNumber.length < 10) {
-          alert("Account Number Must be 10 Digits");
-          return;
-        }
-        window.location.href = "/authenticate?accountNumber=" + accountNumber;
-      }
-      function registerFingerPrint() {
-        var accountNumber = userPinInput.value;
-        if (accountNumber.length < 10) {
-          alert("Please enter your 10 digit account number");
-          return;
-        }
-        window.location.href = "/register?accountNumber=" + accountNumber;
+      function navigateFunction(url) {
+        window.location.href = url;
       }
     </script>
+
+    <script src=" {{ url_for('static',filename='dist/js/vendor/jquery.min.js') }}"></script>
+    <script src=" {{ url_for('static',filename='dist/js/vendor/video.js') }}"></script>
+    <script src=" {{ url_for('static',filename='dist/js/flat-ui.min.js') }}"></script>
+    <script src=" {{ url_for('static',filename='docs/assets/js/application.js') }}"></script>
   </body>
 </html>

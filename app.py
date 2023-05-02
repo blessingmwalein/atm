@@ -62,6 +62,43 @@ def authenticate():
     msg = ''
 
     if request.method == 'POST' and 'accountNumber' in request.form and 'userPinInput' in request.form:
+
+        #check if pin is empty
+        
+
+
+        pin = request.form['userPinInput']
+        # get accountnnumber from query string
+        accountnumber = request.form['accountNumber']
+        print(accountnumber)
+        print(pin)
+
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        if request.form['userPinInput'] == '':
+            cursor.execute('SELECT * FROM users WHERE account_number = % s', (accountnumber,))
+        else:
+            cursor.execute('SELECT * FROM users WHERE account_number = % s AND pin = % s', (accountnumber, pin,))
+
+        account = cursor.fetchone()
+        if account:
+            session['loggedin'] = True
+            session['id'] = account['id']
+            session['acount_number'] = account['account_number']
+            msg = 'Logged in successfully !'
+
+            account = getAcccount()
+            return render_template('account_detail.html', msg=msg, account=account)
+        else:
+            # return redirect with query string
+            return redirect(
+                url_for('authenticate', accountNumber=[accountnumber], msg='Credentials do not match our records !'))
+            # msg = 'Incorrect username / password !'
+    return render_template('input_pin_fingerprint.html', msg=msg)
+@app.route('/register', methods=['GET', 'POST'])
+def regsiter_print():
+    msg = ''
+
+    if request.method == 'POST' and 'accountNumber' in request.form and 'userPinInput' in request.form:
         pin = request.form['userPinInput']
         # get accountnnumber from query string
         accountnumber = request.form['accountNumber']
@@ -84,8 +121,7 @@ def authenticate():
             return redirect(
                 url_for('authenticate', accountNumber=[accountnumber], msg='Incorrect username / password !'))
             # msg = 'Incorrect username / password !'
-    return render_template('input_pin_fingerprint.html', msg=msg)
-
+    return render_template('register_finger.html', msg=msg)
 
 @app.route('/account', methods=['GET', 'POST'])
 def account():

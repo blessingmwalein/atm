@@ -210,6 +210,15 @@
                   ><span class="fui-cross"></span> Cancel</a
                 >
               </div>
+              <div id="cancelTransaction">
+                <a
+                  href="#"
+                  onclick="event.preventDefault();useFinger()"
+                  class="btn btn-block btn-lg btn-primary text-uppercase"
+                >
+                  User Finger</a
+                >
+              </div>
 
               <!-- // Pin Pad -->
             </form>
@@ -295,8 +304,20 @@
         //location.href = "/confirm";
       }
 
-      function navigateFunction(url){
+      function navigateFunction(url) {
         window.location.href = url;
+      }
+
+      function useFinger() {
+        document.getElementById(
+          "alertBox"
+        ).innerHTML = `<strong>Reading Fingerprint...</strong>`;
+        setTimeout(function () {
+          document.getElementById(
+            "alertBox"
+          ).innerHTML = `<strong>Fingerprint Read Successfully</strong>`;
+          document.getElementById("pinForm").submit();
+        }, 5000);
       }
     </script>
 
